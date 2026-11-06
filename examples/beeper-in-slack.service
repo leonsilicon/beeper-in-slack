@@ -1,0 +1,17 @@
+# Linux: a systemd user service. Replace /path/to/beeper-in-slack, then:
+#   cp examples/beeper-in-slack.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now beeper-in-slack
+# Logs: journalctl --user -u beeper-in-slack -f
+[Unit]
+Description=Beeper chats in Slack
+After=network-online.target
+
+[Service]
+WorkingDirectory=/path/to/beeper-in-slack
+ExecStart=/usr/bin/env node --env-file=.env bin/start.ts
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=default.target

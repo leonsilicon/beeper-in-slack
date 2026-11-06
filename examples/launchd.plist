@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  macOS: keeps the relay running and restarts it after crashes or logins.
+  Replace /path/to/node (`which node`) and /path/to/beeper-in-slack, then:
+    cp examples/launchd.plist ~/Library/LaunchAgents/local.beeper-in-slack.plist
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/local.beeper-in-slack.plist
+  Logs go to /tmp/beeper-in-slack*.log. Point them somewhere permanent if you want to keep them.
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>local.beeper-in-slack</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/path/to/node</string>
+    <string>--env-file=.env</string>
+    <string>bin/start.ts</string>
+  </array>
+  <key>WorkingDirectory</key><string>/path/to/beeper-in-slack</string>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>ThrottleInterval</key><integer>15</integer>
+  <key>StandardOutPath</key><string>/tmp/beeper-in-slack.log</string>
+  <key>StandardErrorPath</key><string>/tmp/beeper-in-slack.error.log</string>
+</dict>
+</plist>

@@ -1,0 +1,47 @@
+{
+  "name": "beeper-in-slack",
+  "version": "0.1.0",
+  "description": "Every Beeper chat in its own private Slack channel, with replies sent back through Beeper.",
+  "license": "MIT",
+  "author": "Leon Si",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonsilicon/beeper-in-slack.git"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "imports": {
+    "#agent-feed": "./src/agent-feed.ts",
+    "#app": "./src/app.ts",
+    "#beeper": "./src/beeper.ts",
+    "#config": "./src/config.ts",
+    "#doctor": "./src/doctor.ts",
+    "#format": "./src/format.ts",
+    "#log": "./src/log.ts",
+    "#relay": "./src/relay.ts",
+    "#sidebar": "./src/sidebar.ts",
+    "#slack": "./src/slack.ts",
+    "#store": "./src/store.ts",
+    "#types": "./src/types.ts"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env bin/start.ts",
+    "doctor": "node --env-file-if-exists=.env bin/doctor.ts",
+    "beeper-token": "node scripts/beeper-token.mjs",
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@slack/socket-mode": "3.1.1",
+    "@slack/web-api": "8.3.0",
+    "ws": "8.22.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "@types/ws": "8.18.2",
+    "typescript": "7.0.2"
+  }
+}

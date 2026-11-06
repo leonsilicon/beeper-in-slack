@@ -1,0 +1,32 @@
+{
+  "display_information": {
+    "name": "Beeper in Slack",
+    "description": "A private channel per Beeper chat plus one aggregate feed, with replies back.",
+    "background_color": "#2b2d42"
+  },
+  "features": {
+    "bot_user": { "display_name": "Beeper", "always_online": true }
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": [
+        "chat:write",
+        "chat:write.customize",
+        "files:read",
+        "files:write",
+        "groups:history",
+        "groups:read",
+        "groups:write",
+        "reactions:write",
+        "users:read"
+      ]
+    }
+  },
+  "settings": {
+    "event_subscriptions": { "bot_events": ["message.groups"] },
+    "interactivity": { "is_enabled": false },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": true,
+    "token_rotation_enabled": false
+  }
+}
