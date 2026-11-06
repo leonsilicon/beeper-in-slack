@@ -30,7 +30,7 @@ Editing or deleting a message in Slack does not change what your contact receive
 ## Requirements
 
 - [Beeper Desktop](https://www.beeper.com/download) with the Desktop API turned on, running on the same computer as the relay. It needs to stay running.
-- Node.js 24 or newer.
+- [Vite+](https://viteplus.dev) (`curl -fsSL https://vite.plus | bash`). It sets up Node.js 24 and the pinned Bun for this workspace.
 - A Slack workspace where you can install an app. A workspace of your own is best, since the channels hold your private messages.
 
 ## Setup
@@ -40,55 +40,55 @@ Editing or deleting a message in Slack does not change what your contact receive
    ```sh
    git clone https://github.com/leonsilicon/beeper-in-slack.git
    cd beeper-in-slack
-   npm install
-   cp .env.example .env
+   vp install
+   cp apps/beeper-in-slack/@assets/.env.example .env
    ```
 
-2. **Create the Slack app.** Go to [api.slack.com/apps](https://api.slack.com/apps), choose **Create New App → From a manifest** and paste [`slack-app-manifest.json`](slack-app-manifest.json). Install it to your workspace, then:
+2. **Create the Slack app.** Go to [api.slack.com/apps](https://api.slack.com/apps), choose **Create New App → From a manifest** and paste [`slack-app-manifest.json`](apps/beeper-in-slack/@assets/slack-app-manifest.json). Install it to your workspace, then:
    - Copy the **Bot User OAuth Token** (`xoxb-…`) into `SLACK_BOT_TOKEN`.
    - Under **Basic Information → App-Level Tokens**, create a token with the `connections:write` scope and copy it (`xapp-…`) into `SLACK_APP_TOKEN`.
    - Copy your own member ID (your Slack profile → **⋮ → Copy member ID**) into `SLACK_OWNER_USER_ID`.
 
-3. **Connect Beeper.** In Beeper Desktop's settings, turn on the Desktop API (under **Developers**). Then run `npm run beeper-token` and approve the request that appears in Beeper. The token is saved to `.env` without being printed. You can also create one under **Settings → Integrations** and paste it into `BEEPER_ACCESS_TOKEN`.
+3. **Connect Beeper.** In Beeper Desktop's settings, turn on the Desktop API (under **Developers**). Then run `vpx _beeper-token` and approve the request that appears in Beeper. The token is saved to `.env` without being printed. You can also create one under **Settings → Integrations** and paste it into `BEEPER_ACCESS_TOKEN`.
 
 4. **Check everything.**
 
    ```sh
-   npm run doctor
+   vpr -w doctor
    ```
 
 5. **Start it.** It starts with sending off, so you can watch messages arrive first. Set `SEND_ENABLED=true` in `.env` when you're ready to reply from Slack.
 
    ```sh
-   npm start
+   vpr -w start
    ```
 
-To keep it running in the background, see [`examples/`](examples) for a macOS launchd agent and a Linux systemd user service.
+To keep it running in the background, use the macOS [launchd agent](apps/beeper-in-slack/@assets/launchd.plist) or the Linux [systemd user service](apps/beeper-in-slack/@assets/beeper-in-slack.service).
 
 ## Configuration
 
 All settings come from environment variables, normally in `.env`.
 
-| Variable | Default | Meaning |
-| --- | --- | --- |
-| `BEEPER_ACCESS_TOKEN` | required | Beeper Desktop API token. |
-| `SLACK_BOT_TOKEN` | required | The app's bot token (`xoxb-…`). |
-| `SLACK_APP_TOKEN` | required | The app-level Socket Mode token (`xapp-…`). |
-| `SLACK_OWNER_USER_ID` | required | You. You get invited to every channel and receive the private notices. |
-| `SEND_ENABLED` | `false` | Send Slack replies to your contacts. |
-| `MIRROR_MUTED` | `false` | Also mirror muted and low-priority chats. Otherwise they stay out of Slack, though the agent digest still includes them. |
-| `EXCLUDED_CHAT_IDS` | empty | Comma-separated Beeper chat IDs to leave out entirely. |
-| `EXCLUDED_NETWORKS` | empty | Comma-separated networks to leave out, by name or account prefix, such as `whatsapp,linkedin`. |
-| `BEEPER_BASE_URL` | `http://127.0.0.1:23373` | Where the Desktop API listens. |
-| `STATE_DB` | `~/.local/share/beeper-in-slack/state.db` | Where IDs and routing are stored. |
-| `RECONCILE_SECONDS` | `120` | How often to catch up on missed messages. |
-| `AGENT_SLACK_USER_ID` | empty | Optional AI agent digest. See below. |
-| `AGENT_QUIET_SECONDS` / `AGENT_MAX_SECONDS` | `60` / `300` | Digest timing. |
-| `SLACK_SESSION_TOKEN` / `SLACK_SESSION_COOKIE` / `SLACK_SIDEBAR_SECTION` | empty / empty / `Beeper` | Optional sidebar filing. See below. |
+| Variable                                                                 | Default                                   | Meaning                                                                                                                  |
+| ------------------------------------------------------------------------ | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `BEEPER_ACCESS_TOKEN`                                                    | required                                  | Beeper Desktop API token.                                                                                                |
+| `SLACK_BOT_TOKEN`                                                        | required                                  | The app's bot token (`xoxb-…`).                                                                                          |
+| `SLACK_APP_TOKEN`                                                        | required                                  | The app-level Socket Mode token (`xapp-…`).                                                                              |
+| `SLACK_OWNER_USER_ID`                                                    | required                                  | You. You get invited to every channel and receive the private notices.                                                   |
+| `SEND_ENABLED`                                                           | `false`                                   | Send Slack replies to your contacts.                                                                                     |
+| `MIRROR_MUTED`                                                           | `false`                                   | Also mirror muted and low-priority chats. Otherwise they stay out of Slack, though the agent digest still includes them. |
+| `EXCLUDED_CHAT_IDS`                                                      | empty                                     | Comma-separated Beeper chat IDs to leave out entirely.                                                                   |
+| `EXCLUDED_NETWORKS`                                                      | empty                                     | Comma-separated networks to leave out, by name or account prefix, such as `whatsapp,linkedin`.                           |
+| `BEEPER_BASE_URL`                                                        | `http://127.0.0.1:23373`                  | Where the Desktop API listens.                                                                                           |
+| `STATE_DB`                                                               | `~/.local/share/beeper-in-slack/state.db` | Where IDs and routing are stored.                                                                                        |
+| `RECONCILE_SECONDS`                                                      | `120`                                     | How often to catch up on missed messages.                                                                                |
+| `AGENT_SLACK_USER_ID`                                                    | empty                                     | Optional AI agent digest. See below.                                                                                     |
+| `AGENT_QUIET_SECONDS` / `AGENT_MAX_SECONDS`                              | `60` / `300`                              | Digest timing.                                                                                                           |
+| `SLACK_SESSION_TOKEN` / `SLACK_SESSION_COOKIE` / `SLACK_SIDEBAR_SECTION` | empty / empty / `Beeper`                  | Optional sidebar filing. See below.                                                                                      |
 
 ### Optional: an AI agent digest
 
-If an AI agent in your Slack workspace, such as [Hermes Agent](https://github.com/NousResearch/hermes-agent), should know about your messages, set `AGENT_SLACK_USER_ID` to its bot's member ID. `npm run doctor` lists the bots. The relay invites the agent to `#beeper-feed` and, after a quiet minute or at most five minutes, @mentions it in the feed's status thread with a batch of new messages. The batch is marked as written by other people, to be treated as information rather than instructions. Your own messages are included for context but don't trigger a batch.
+If an AI agent in your Slack workspace, such as [Hermes Agent](https://github.com/NousResearch/hermes-agent), should know about your messages, set `AGENT_SLACK_USER_ID` to its bot's member ID. `vpr -w doctor` lists the bots. The relay invites the agent to `#beeper-feed` and, after a quiet minute or at most five minutes, @mentions it in the feed's status thread with a batch of new messages. The batch is marked as written by other people, to be treated as information rather than instructions. Your own messages are included for context but don't trigger a batch.
 
 This hands the full text of your messages to that agent. If the agent can take actions, anyone who texts you can try to steer it.
 
@@ -108,11 +108,12 @@ That session can do anything you can do in Slack, so only use this on a machine 
 ## Development
 
 ```sh
-npm test
-npm run typecheck
+vp check
+vpr -w test
+vpr -w typecheck
 ```
 
-Node runs the TypeScript directly, so there is no build step. `npm run doctor -- --watch 60` prints the shape of live Beeper events, with IDs hashed and no message text.
+Node runs the TypeScript directly, so there is no build step. `node --env-file=.env apps/beeper-in-slack/doctor.ts --watch 60` prints the shape of live Beeper events, with IDs hashed and no message text. The workspace follows the [Flatcap](https://github.com/leonsilicon/flatcap) convention; see [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## License
 

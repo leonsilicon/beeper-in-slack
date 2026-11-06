@@ -9,14 +9,15 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # Installs Vite+ (version from the catalog), Node, and Bun, then runs `vp install`.
+      - uses: voidzero-dev/setup-vp@68f39c78aaf39be468cabd2afb09c162574c84af # v1.21.2
         with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npm test
+          node-version: "24"
+          cache: true
+      - run: vp check
+      - run: vp run -w typecheck
+      - run: vp run -w test

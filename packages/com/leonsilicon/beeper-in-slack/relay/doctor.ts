@@ -1,5 +1,5 @@
 // Read-only checks. Run with `--watch <seconds>` to print the shape of live events, without any message text.
-import WebSocket from "ws";
+import WebSocket from "@-/com.npmjs.ws";
 import { BeeperClient } from "#beeper";
 import { isRealPerson, shortHash, threadLabel } from "#format";
 import { SlackSidebar } from "#sidebar";

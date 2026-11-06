@@ -2,7 +2,7 @@
 <!--
   macOS: keeps the relay running and restarts it after crashes or logins.
   Replace /path/to/node (`which node`) and /path/to/beeper-in-slack, then:
-    cp examples/launchd.plist ~/Library/LaunchAgents/local.beeper-in-slack.plist
+    cp apps/beeper-in-slack/@assets/launchd.plist ~/Library/LaunchAgents/local.beeper-in-slack.plist
     launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/local.beeper-in-slack.plist
   Logs go to /tmp/beeper-in-slack*.log. Point them somewhere permanent if you want to keep them.
 -->
@@ -14,7 +14,7 @@
   <array>
     <string>/path/to/node</string>
     <string>--env-file=.env</string>
-    <string>bin/start.ts</string>
+    <string>apps/beeper-in-slack/main.ts</string>
   </array>
   <key>WorkingDirectory</key><string>/path/to/beeper-in-slack</string>
   <key>RunAtLoad</key><true/>

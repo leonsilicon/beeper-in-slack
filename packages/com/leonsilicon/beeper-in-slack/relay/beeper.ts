@@ -1,7 +1,7 @@
 import { EventEmitter } from "node:events";
 import { openAsBlob } from "node:fs";
 import { fileURLToPath } from "node:url";
-import WebSocket from "ws";
+import WebSocket from "@-/com.npmjs.ws";
 import type {
   BeeperApi,
   BeeperChat,

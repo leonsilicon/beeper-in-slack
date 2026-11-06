@@ -1,0 +1,28 @@
+{
+  "name": "@-/com.leonsilicon.beeper-in-slack.relay",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#agent-feed": "./agent-feed.ts",
+    "#app": "./app.ts",
+    "#beeper": "./beeper.ts",
+    "#config": "./config.ts",
+    "#doctor": "./doctor.ts",
+    "#format": "./format.ts",
+    "#log": "./log.ts",
+    "#relay": "./relay.ts",
+    "#sidebar": "./sidebar.ts",
+    "#slack": "./slack.ts",
+    "#store": "./store.ts",
+    "#types": "./types.ts"
+  },
+  "exports": {
+    ".": "./+server.ts"
+  },
+  "dependencies": {
+    "@-/com.npmjs.slack__socket-mode": "workspace:*",
+    "@-/com.npmjs.slack__web-api": "workspace:*",
+    "@-/com.npmjs.ws": "workspace:*"
+  }
+}

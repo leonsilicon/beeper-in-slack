@@ -1,0 +1,12 @@
+{
+  "name": "@-/com.npmjs.slack__web-api",
+  "private": true,
+  "type": "module",
+  "imports": {},
+  "exports": {
+    ".": "./+.ts"
+  },
+  "dependencies": {
+    "@slack/web-api": "catalog:"
+  }
+}

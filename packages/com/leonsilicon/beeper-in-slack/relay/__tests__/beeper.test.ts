@@ -3,7 +3,7 @@ import { once } from "node:events";
 import { createServer, type IncomingMessage, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { test } from "node:test";
-import { WebSocketServer, type WebSocket } from "ws";
+import { WebSocketServer, type WebSocket } from "@-/com.npmjs.ws";
 import { BeeperClient, BeeperStream } from "#beeper";
 import type { BeeperEvent } from "#types";
 

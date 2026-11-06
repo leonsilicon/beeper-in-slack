@@ -1,0 +1,12 @@
+{
+  "name": "@-apps/beeper-in-slack",
+  "private": true,
+  "bin": {
+    "_beeper-token": "./_beeper-token.mjs"
+  },
+  "type": "module",
+  "imports": {},
+  "dependencies": {
+    "@-/com.leonsilicon.beeper-in-slack.relay": "workspace:*"
+  }
+}

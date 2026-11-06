@@ -1,4 +1,4 @@
-import { SocketModeClient } from "@slack/socket-mode";
+import { SocketModeClient } from "@-/com.npmjs.slack__socket-mode";
 import { BeeperClient, BeeperStream } from "#beeper";
 import { loadConfig } from "#config";
 import { AgentFeed } from "#agent-feed";

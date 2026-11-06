@@ -1,0 +1,12 @@
+{
+  "name": "@-/com.npmjs.slack__socket-mode",
+  "private": true,
+  "type": "module",
+  "imports": {},
+  "exports": {
+    ".": "./+.ts"
+  },
+  "dependencies": {
+    "@slack/socket-mode": "catalog:"
+  }
+}

@@ -4,7 +4,7 @@ import { test } from "node:test";
 
 // Imports run before config is read, so reaching the settings check proves every module loads under real Node ESM.
 test("the service loads all its modules and then refuses to start without settings", () => {
-  const result = spawnSync(process.execPath, ["bin/start.ts"], {
+  const result = spawnSync(process.execPath, ["apps/beeper-in-slack/main.ts"], {
     env: {},
     encoding: "utf8",
   });
@@ -16,7 +16,7 @@ test("the service loads all its modules and then refuses to start without settin
 });
 
 test("the doctor loads and reports missing tokens without crashing", () => {
-  const result = spawnSync(process.execPath, ["bin/doctor.ts"], {
+  const result = spawnSync(process.execPath, ["apps/beeper-in-slack/doctor.ts"], {
     env: { BEEPER_BASE_URL: "http://127.0.0.1:1" },
     encoding: "utf8",
   });

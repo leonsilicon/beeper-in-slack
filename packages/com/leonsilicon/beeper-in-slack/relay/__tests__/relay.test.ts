@@ -542,7 +542,13 @@ test("agents replying in a thread that didn't start from Beeper stay in Slack", 
   assert.equal(h.sends.length, 0);
   // The agent and another bot answer in that thread as themselves: none of it reaches the contact.
   await post({ user: "UAGENT", bot_id: "BAGENT", ts: "800.2", thread_ts: "800.1", text: "a" });
-  await post({ user: "UOTHERBOT", bot_id: "BOTHERBOT", ts: "800.3", thread_ts: "800.1", text: "b" });
+  await post({
+    user: "UOTHERBOT",
+    bot_id: "BOTHERBOT",
+    ts: "800.3",
+    thread_ts: "800.1",
+    text: "b",
+  });
   // Under a message the owner sent, too, and in a thread whose root the relay doesn't know.
   await post({ user: OWNER, ts: "801.1", client_msg_id: "sent", text: "hey" });
   await post({ user: "UAGENT", bot_id: "BAGENT", ts: "801.2", thread_ts: "801.1", text: "c" });

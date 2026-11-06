@@ -1,5 +1,5 @@
 # Linux: a systemd user service. Replace /path/to/beeper-in-slack, then:
-#   cp examples/beeper-in-slack.service ~/.config/systemd/user/
+#   cp apps/beeper-in-slack/@assets/beeper-in-slack.service ~/.config/systemd/user/
 #   systemctl --user daemon-reload
 #   systemctl --user enable --now beeper-in-slack
 # Logs: journalctl --user -u beeper-in-slack -f
@@ -9,7 +9,7 @@ After=network-online.target
 
 [Service]
 WorkingDirectory=/path/to/beeper-in-slack
-ExecStart=/usr/bin/env node --env-file=.env bin/start.ts
+ExecStart=/usr/bin/env node --env-file=.env apps/beeper-in-slack/main.ts
 Restart=always
 RestartSec=15
 

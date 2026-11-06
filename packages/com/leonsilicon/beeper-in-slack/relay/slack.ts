@@ -5,7 +5,7 @@ import { basename, join } from "node:path";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import type { ReadableStream as NodeWebStream } from "node:stream/web";
-import webApi, { WebClient } from "@slack/web-api";
+import webApi, { WebClient } from "@-/com.npmjs.slack__web-api";
 import type { SlackApi, SlackIdentity, SlackPost } from "#types";
 
 // This is a CommonJS package whose retry policies Node can't detect as a named export.
